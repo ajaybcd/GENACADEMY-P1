@@ -100,7 +100,7 @@ except (ValueError, UnicodeError) as exc:
 if demo:
     prices = {'AAPL':225.0, 'MSFT':450.0, 'NVDA':140.0, 'GOOGL':190.0}
     history = {}
-    as_of = date(2025, 6, 30)
+    as_of = date(2026, 10, 11)
     st.info('Offline demo · Illustrative prices as of June 30, 2025. These are not live market quotes.')
 else:
     with st.spinner('Fetching daily market closes…'):
