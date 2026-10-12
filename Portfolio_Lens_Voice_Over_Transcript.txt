@@ -1,0 +1,31 @@
+Welcome to Portfolio Lens. This presentation explains how the app turns stock transaction history into a current portfolio view, how it was built, and how an investor uses it.
+
+The starting point is a simple problem. A transaction spreadsheet lists purchases and sales, but it does not immediately explain what the investor still owns, what those positions are worth, how gains are split between realized and unrealized performance, or where the portfolio is concentrated.
+
+Portfolio Lens solves that problem with a Python and Streamlit application. Python runs the portfolio calculations. Streamlit creates the web screen, sidebar, tabs, metric cards, upload controls, and optional chat. Pandas reads and prepares the transaction data. yfinance retrieves daily stock price history. Plotly creates interactive charts. The Groq software development kit provides an optional portfolio summary and analyst chat. The core dashboard still works without a Groq key.
+
+The project was built in five prompts. 
+
+The first prompt created the project structure, sample CSV file, uploader, offline demo, validation, and basic tests. 
+The second prompt added FIFO accounting. Purchase fees enter the cost basis, sale fees reduce proceeds, and the app calculates realized gains, unrealized gains, total return, and annualized XIRR. 
+The third prompt added market prices, the Overview screen, allocation, and the top five holdings visual. 
+The fourth prompt added the Performance screen, historical valuation, and plain language methodology. 
+The fifth prompt added secure Groq AI, secret handling, documentation, and deployment readiness.
+
+The sidebar is the starting point for an investor. It contains the transaction CSV upload, the offline demo switch, a sample CSV download, an optional Groq key and model field, and a button to refresh market prices.
+
+The Overview tab summarizes the current portfolio. It shows metric cards for current holdings value, total gain or loss, realized gain or loss, and number of open positions. It also shows chips for the five largest priced holdings, a horizontal bar chart of those same positions, an allocation donut chart, and a detailed holdings table. The table includes shares, cost basis, current price, market value, realized gain, and unrealized gain.
+
+The Performance tab explains how the portfolio has performed. It shows total purchases including fees, net sale proceeds, return on total purchases, and annualized XIRR. When price history is available for each holding, it also shows a daily chart that compares holdings value with cumulative net investment. The app states that this is a transaction based measure. It does not include dividends, taxes, transfers, idle cash, currency conversion, short positions, or automatic stock split adjustments.
+
+The Transactions tab displays the validated records in chronological order. The AI analyst tab is optional. When a Groq key is configured, an investor can request a short portfolio summary or ask questions based on the uploaded transactions and the calculated results.
+
+To upload a transaction file, choose a CSV from the sidebar. The required columns are date, symbol, action, quantity, and price. Fees are optional. Action must be BUY or SELL. The app checks the date format, prevents future dates, checks ticker formatting, requires positive quantities and prices, requires nonnegative fees, and prevents selling more shares than the investor owns. If a file has an issue, the app explains the error before requesting market prices or calculating totals.
+
+To launch Portfolio Lens locally, open PowerShell in the folder that contains app dot py. First create a virtual environment by running python minus m venv dot venv. Next, install the dependencies with dot backslash dot venv backslash Scripts backslash python dot exe minus m pip install minus r requirements dot txt. Then start the app with dot backslash dot venv backslash Scripts backslash python dot exe minus m streamlit run app dot py. Streamlit opens the app in a desktop browser at localhost port 8501.
+
+Localhost only works on the same computer running Streamlit. To use the dashboard on a phone, push the complete project to GitHub, create an app at Streamlit Community Cloud, select app dot py as the entry point, add any secrets in the app settings, and then open the public streamlit dot app address.
+
+For security, keep the Groq API key out of GitHub, the source code, and screenshots. Store it in Streamlit secrets locally and in the Streamlit Community Cloud secrets settings for the deployed app. If a key leaks, revoke it and create a new key. Portfolio Lens sends data to Groq only after an investor requests a summary or asks a chat question. The assistant receives validated transaction data and calculated context, and it is instructed to avoid inventing prices, news, forecasts, or investment recommendations.
+
+Portfolio Lens gives an investor a clearer, more explainable way to understand transaction history. Begin with the sample CSV, review the Overview and Performance tabs, then upload your own transaction history when you are ready.
